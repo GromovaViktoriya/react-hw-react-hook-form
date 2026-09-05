@@ -1,16 +1,16 @@
 import {useForm} from "react-hook-form";
-import {Button} from "@mui/material";
+import {Button, MenuItem} from "@mui/material";
 import {FormInput} from "./FormInput/FormInput.jsx";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 
 const schema = yup
     .object({
-        name: yup.string().required().min(2).max(20),
-        email: yup.string().email("Введите корректный email").required(),
+        name: yup.string().required("Введите ваше имя").min(2).max(20),
+        email: yup.string().email("Введите корректный email").required("Введите email"),
         password: yup
             .string()
-            .required("Пароль обязателен")
+            .required("Введите пароль")
             .min(6, "Пароль должен содержать минимум 6 символов")
             .matches(/(?=.*[A-ZА-Я])/, "Пароль должен содержать хотя бы одну заглавную букву"),
         confirmPassword: yup
@@ -19,16 +19,16 @@ const schema = yup
             .oneOf([yup.ref("password")], "Пароли не совпадают"),
         birthDate: yup
             .date()
-            .typeError("Введите корректную дату")
-            .required("Дата рождения обязательна")
+            .typeError("Введите вашу дату рождения")
+            .required("Введите вашу дату рождения")
             .max(new Date(), "Дата рождения не может быть в будущем")
             .min(new Date("1900-01-01"), "Вы уверены, что вы вампир? :)"),
-        gender: yup.string().oneOf(["мужской", "женский"]).required(),
+        gender: yup.string().required("Выберете пол"),
         phone: yup.string()
             .required("Введите номер телефона")
             .matches(
-            /^\+7\(\d{3}\)\d{2}-\d{3}-\d{2}$/,
-            "Введите номер в формате +7(XXX)XX-XXX-XX"
+            /^\+7\d{3}\d{2}\d{3}\d{2}$/,
+            "Введите номер в формате +7XXXXXXXXXX"
         )
     })
     .required()
@@ -69,6 +69,21 @@ export const RegistrationForm = () => {
             <FormInput name={"birthDate"}
                        control={control}
                        type="date"
+                       sx={{background: "#fff", width: 250}}
+            />
+            <FormInput
+                name="gender"
+                control={control}
+                label="Пол"
+                select={true}
+                sx={{background: "#fff", width: 250}}
+            >
+                <MenuItem value="мужской">Мужской</MenuItem>
+                <MenuItem value="женский">Женский</MenuItem>
+            </FormInput>
+            <FormInput name={"phone"}
+                       control={control}
+                       type="phone"
                        sx={{background: "#fff", width: 250}}
             />
             <Button type="submit" variant="outlined" size="large" sx={{background: "#fff", height: 55, width: 250}}>Отправить</Button>
