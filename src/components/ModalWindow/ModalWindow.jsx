@@ -16,7 +16,7 @@ export const ModalWindow = ({data, open, handleClose})=>{
           flexDirection: 'column',
           alignItems: 'center',
          }}>
-          <h2>Вы успешно зарегистрированы!</h2>
+          <h2>Успешно зарегистрировано</h2>
           <p>JSON:</p>
           <p className={'result'}> {JSON.stringify(data, null, 2)}</p>
          </Box>

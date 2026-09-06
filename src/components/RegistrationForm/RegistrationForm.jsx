@@ -66,11 +66,12 @@ export const RegistrationForm = () => {
                 </FormInput>
                 <FormInput name={"phone"}
                            control={control}
+                           label="Номер телефона"
                            type="phone"
                            sx={{background: "#fff", width: 250}}
                 />
                 <Button type="submit" variant="outlined" size="large"
-                        sx={{background: "#fff", height: 55, width: 250}}>Отправить</Button>
+                        sx={{background: "#fff", height: 55, width: 250}}>Зарегистрироваться</Button>
             </form>
             {data && <ModalWindow open={open} onClose={handleClose} data={data}/>}
         </>
